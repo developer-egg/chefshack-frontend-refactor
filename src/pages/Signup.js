@@ -6,31 +6,39 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-import vector from "../images/undraw_join.svg";
+import vector from "../images/undraw_interface.svg";
 
-const Login = () => {
+const Signup = () => {
+  const [email, setEmail] = useState(null);
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
 
   const handleSubmit = () => {
-    if (username === null || password === null) {
-      alert("Please enter a username and password");
+    if (username === null || password === null || email === null || confirmPassword === null) {
+      alert("Invalid input");
       return;
+    }
+
+    if(password !== confirmPassword) {
+      alert("Passwords do not match")
+      return
     }
 
     const bodyFormData = new FormData();
     bodyFormData.append("username", username);
     bodyFormData.append("password", password);
+    bodyFormData.append("email", email);
 
     axios
-      .post("http://localhost:8000/members/login_user", bodyFormData)
+      .post("http://localhost:8000/members/register_user", bodyFormData)
       .then((res) => {
         if (res.data.success === true) {
-          // login user
+          // account has been created, so also login the user
           window.localStorage.setItem("username", res.data.user);
           window.localStorage.setItem("authenticated", true);
 
@@ -51,12 +59,20 @@ const Login = () => {
         </Col>
 
         <Col>
-          <h1>Login</h1>
+          <h1>Create an Account</h1>
 
-          <Link to="/signup" className="link">
-            Don't have an account?{" "}
-            <span className="text-success underline">Create one for free</span>
+          <Link to="/login" className="link">
+            Already have an account?{" "}
+            <span className="text-success underline">Log in</span>
           </Link>
+
+          <FloatingLabel label="Email" className="mt-4 mb-4">
+            <FormControl
+              type="email"
+              placeholder="Email"
+              onChange={({ target }) => setEmail(target.value)}
+            />
+          </FloatingLabel>
 
           <FloatingLabel label="Username" className="mt-4 mb-4">
             <FormControl
@@ -66,11 +82,19 @@ const Login = () => {
             />
           </FloatingLabel>
 
-          <FloatingLabel label="Password">
+          <FloatingLabel label="Password" className="mb-4">
             <FormControl
               type="password"
               placeholder="Password"
               onChange={({ target }) => setPassword(target.value)}
+            />
+          </FloatingLabel>
+
+          <FloatingLabel label="Confirm Password">
+            <FormControl
+              type="password"
+              placeholder="Confirm Password"
+              onChange={({ target }) => setConfirmPassword(target.value)}
             />
           </FloatingLabel>
 
@@ -90,4 +114,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
