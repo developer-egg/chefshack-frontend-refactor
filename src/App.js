@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 
 import "./css/custom.css"
 import AppNavbar from "./components/Navbar";
+import Login from "./pages/Login";
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home/>} />
+        <Route path="/login" element={<Login/>} />
       </Routes>
     </Router>
   );

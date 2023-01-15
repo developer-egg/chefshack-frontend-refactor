@@ -5,7 +5,7 @@ const AppNavbar = () => {
     return (
         <Navbar>
             <Container>
-                <Navbar.Brand>ChefShack</Navbar.Brand>
+                <Link to="/" className="navbar-brand">ChefShack</Link>
 
                 <Nav>
                     <Link to="/recipes" className="nav-link">Recipes</Link>

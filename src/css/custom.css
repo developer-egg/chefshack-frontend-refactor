@@ -11,3 +11,19 @@
 .nav-link {
     text-decoration: none !important;
 }
+
+.link {
+    text-decoration: none;
+    color: #292b2c;
+}
+
+.link:hover {
+    color: #292b2c;
+}
+
+/* If the screen is bootstrap "small" or smaller */
+@media only screen and (max-width: 768px) {
+    #login-image-col {
+        display: none !important;
+    }
+}
