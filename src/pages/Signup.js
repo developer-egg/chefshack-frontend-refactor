@@ -6,7 +6,7 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -54,7 +54,7 @@ const Signup = () => {
   return (
     <Container className="mt-5">
       <Row className="align-items-center">
-        <Col id="login-image-col">
+        <Col id="signup-image-col">
           <img src={vector} alt="join" />
         </Col>
 

@@ -27,3 +27,9 @@
         display: none !important;
     }
 }
+
+@media only screen and (max-width: 991px) {
+    #signup-image-col {
+        display: none !important;
+    }
+}
