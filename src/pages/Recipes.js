@@ -53,7 +53,11 @@ const Recipes = () => {
       </Container>
     );
   } else {
-    return <Spinner id="spinner" animation="border" variant="success" />;
+    return (
+      <Container fluid className="d-flex justify-content-center">
+        <Spinner id="spinner" animation="border" variant="success" />
+      </Container>
+    );
   }
 };
 
