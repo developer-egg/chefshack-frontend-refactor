@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Recipes from "./pages/Recipes";
 import IndividualRecipe from "./pages/IndividualRecipe";
+import CreateRecipe from "./pages/CreateRecipe";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup/>}/>
+        <Route path="/create" element={<CreateRecipe/>} />
         <Route path="/recipes" element={<Recipes/>}/>
         <Route path="/recipes/:id" element={<IndividualRecipe/>} />
       </Routes>

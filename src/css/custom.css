@@ -44,6 +44,11 @@
     text-decoration: underline #198754;
 }
 
-#recipes-page-create-link {
+a {
     color:#198754;
+}
+
+a:hover {
+    color:#198754;
+    filter: brightness(85%);
 }

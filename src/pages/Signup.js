@@ -40,6 +40,7 @@ const Signup = () => {
         if (res.data.success === true) {
           // account has been created, so also login the user
           window.localStorage.setItem("username", res.data.user);
+          window.localStorage.setItem("userID", res.data.id);
           window.localStorage.setItem("authenticated", true);
 
           // success! redirect the user

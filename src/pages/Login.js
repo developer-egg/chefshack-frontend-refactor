@@ -32,6 +32,7 @@ const Login = () => {
         if (res.data.success === true) {
           // login user
           window.localStorage.setItem("username", res.data.user);
+          window.localStorage.setItem("userID", res.data.id);
           window.localStorage.setItem("authenticated", true);
 
           // success! redirect the user
