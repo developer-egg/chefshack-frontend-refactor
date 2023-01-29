@@ -3,6 +3,7 @@ import RecipeTile from "../components/RecipeTile";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
@@ -10,7 +11,7 @@ const Recipes = () => {
 
   async function fillRecipeList() {
     await axios
-      .get("http://localhost:8000/recipes/get_all_recipes")
+      .get("https://chefshack-backend.herokuapp.com/recipes/get_all_recipes")
       .then((res) => {
         setRecipes(res.data.recipes);
       })
@@ -33,7 +34,7 @@ const Recipes = () => {
         <div className="mt-5 mb-5">
           <h1 className="text-center">Explore Recipes</h1>
           <p className="text-center lead">
-            or search by <span className="underline text-success">cuisine</span>
+            discover new dishes or <Link to="/create" id="recipes-page-create-link">create your own</Link>
           </p>
         </div>
 

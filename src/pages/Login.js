@@ -27,7 +27,7 @@ const Login = () => {
     bodyFormData.append("password", password);
 
     axios
-      .post("http://localhost:8000/members/login_user", bodyFormData)
+      .post("https://chefshack-backend.herokuapp.com/members/login_user", bodyFormData)
       .then((res) => {
         if (res.data.success === true) {
           // login user

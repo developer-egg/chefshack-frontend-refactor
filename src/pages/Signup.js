@@ -35,7 +35,7 @@ const Signup = () => {
     bodyFormData.append("email", email);
 
     axios
-      .post("http://localhost:8000/members/register_user", bodyFormData)
+      .post("https://chefshack-backend.herokuapp.com/members/register_user", bodyFormData)
       .then((res) => {
         if (res.data.success === true) {
           // account has been created, so also login the user

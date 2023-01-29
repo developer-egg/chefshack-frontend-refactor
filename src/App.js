@@ -6,6 +6,7 @@ import AppNavbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Recipes from "./pages/Recipes";
+import IndividualRecipe from "./pages/IndividualRecipe";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/recipes" element={<Recipes/>}/>
+        <Route path="/recipes/:id" element={<IndividualRecipe/>} />
       </Routes>
     </Router>
   );

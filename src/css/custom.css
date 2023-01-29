@@ -33,3 +33,17 @@
         display: none !important;
     }
 }
+
+.recipe-tile-link {
+    color: #212529;
+    text-decoration: none;
+}
+
+.recipe-tile-link:hover {
+    color: #212529;
+    text-decoration: underline #198754;
+}
+
+#recipes-page-create-link {
+    color:#198754;
+}
