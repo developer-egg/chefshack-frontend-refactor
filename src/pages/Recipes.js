@@ -13,7 +13,17 @@ const Recipes = () => {
     await axios
       .get("https://chefshack-backend.herokuapp.com/recipes/get_all_recipes")
       .then((res) => {
-        setRecipes(res.data.recipes);
+        let recipeData = res.data.recipes
+
+        // sort the recipes by number of likes
+        recipeData.sort((a, b) => {
+          return a.likes - b.likes
+        })
+
+        // flip the data so that it is in descending order
+        recipeData = recipeData.reverse()
+
+        setRecipes(recipeData);
       })
       .catch((err) => {
         console.log(err);
@@ -40,7 +50,7 @@ const Recipes = () => {
 
         <Row className="gy-5">
           {recipes.map((recipe) => (
-            <Col className="d-flex justify-content-center" lg={4} md={6}>
+            <Col key={recipe.id} className="d-flex justify-content-center" lg={4} md={6}>
               <RecipeTile
                 title={recipe.recipe_title}
                 author={recipe.username}

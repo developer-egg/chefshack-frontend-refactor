@@ -52,3 +52,31 @@ a:hover {
     color:#198754;
     filter: brightness(85%);
 }
+
+#recipe-tile-star-area {
+    display: inline;
+}
+
+#recipe-tile-star-counter {
+    display: inline;
+}
+
+#recipe-tile-star {
+    position: relative;
+    bottom: 3px;
+    left: 4px;
+}
+
+#recipe-page-like-button {
+    border: 0;
+    background: transparent;
+}
+
+#recipe-page-like-counter {
+    display: inline;
+}
+
+#recipe-page-like-image {
+    position: relative;
+    bottom: 5px;
+}

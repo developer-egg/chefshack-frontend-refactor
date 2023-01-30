@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { Container, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
+import starFilled from "../images/star-filled.png";
+import starOutline from "../images/star-outline.png";
+
 const IndividualRecipe = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -13,6 +16,8 @@ const IndividualRecipe = () => {
   const [procedure, setProcedure] = useState([""]);
 
   const [isLoading, setIsLoading] = useState(true);
+
+  const [isStarFilled, setIsStarFilled] = useState(false);
 
   let { id } = useParams();
 
@@ -41,6 +46,58 @@ const IndividualRecipe = () => {
     return `${monthName} ${day}, ${year}`;
   }
 
+  function likeButtonHandler() {
+    if (!isStarFilled) {
+      if (window.localStorage.getItem("authenticated")) {
+        setIsStarFilled(true);
+
+        console.log(
+          `Username on recipe page is: ${window.localStorage.getItem(
+            "username"
+          )}`
+        );
+
+        const bodyFormData = new FormData();
+        bodyFormData.append(
+          "username",
+          window.localStorage.getItem("username")
+        );
+
+        bodyFormData.append("recipeID", id);
+
+        axios
+          .post(
+            "https://chefshack-backend.herokuapp.com/members/like_recipe",
+            bodyFormData
+          )
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    } else {
+      if (window.localStorage.getItem("authenticated")) {
+        setIsStarFilled(false);
+
+        const bodyFormData = new FormData();
+
+        bodyFormData.append(
+          "username",
+          window.localStorage.getItem("username")
+        );
+        bodyFormData.append("recipeID", id);
+
+        axios
+          .post(
+            "https://chefshack-backend.herokuapp.com/members/unlike_recipe",
+            bodyFormData
+          )
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    }
+  }
+
   useEffect(() => {
     function getRecipe() {
       const bodyFormData = new FormData();
@@ -63,11 +120,34 @@ const IndividualRecipe = () => {
         .catch((err) => {
           console.log(err);
         })
-        .finally((err) => {
+    }
+    function checkIfRecipeIsLiked() {
+      if (!window.localStorage.getItem("authenticated")) {
+        return;
+      }
+
+      const username = window.localStorage.getItem("username");
+
+      axios
+        .get(
+          `https://chefshack-backend.herokuapp.com/members/get_user_by_name/${username}`
+        )
+        .then((res) => {
+          for (const recipeId of res.data.likedRecipes) {
+            if (recipeId === id) {
+              // fill in the like button if the recipe is already liked
+              setIsStarFilled(true);
+            }
+          }
+        })
+        .finally(() => {
+          // since all axios calls are done at this point, set isLoading to false
           setIsLoading(false);
         });
     }
+
     getRecipe();
+    checkIfRecipeIsLiked();
   }, []);
 
   if (!isLoading) {
@@ -76,6 +156,27 @@ const IndividualRecipe = () => {
         <h1 className="display-3 mt-5">{title}</h1>
         <h3 className="fw-light">by {author}</h3>
         <p className="lead mt-4">{getCleanDate(pubDate)}</p>
+
+        <div id="recipe-page-like-area">
+          <p className="lead" id="recipe-page-like-counter">
+            Like this recipe? Give it a star!
+          </p>
+          <button
+            id="recipe-page-like-button"
+            onClick={() => {
+              likeButtonHandler();
+            }}
+          >
+            <img
+              id="recipe-page-like-image"
+              src={isStarFilled ? starFilled : starOutline}
+              alt="star"
+              height={32}
+              width={32}
+            ></img>
+          </button>
+        </div>
+        <img />
 
         <img
           className="recipe-page-image mt-4"
