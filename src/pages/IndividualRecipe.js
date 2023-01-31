@@ -120,6 +120,10 @@ const IndividualRecipe = () => {
         .catch((err) => {
           console.log(err);
         })
+        .finally(() => {
+          // since all axios calls are done at this point, set isLoading to false
+          setIsLoading(false);
+        });
     }
     function checkIfRecipeIsLiked() {
       if (!window.localStorage.getItem("authenticated")) {
@@ -139,15 +143,11 @@ const IndividualRecipe = () => {
               setIsStarFilled(true);
             }
           }
-        })
-        .finally(() => {
-          // since all axios calls are done at this point, set isLoading to false
-          setIsLoading(false);
         });
     }
 
-    getRecipe();
     checkIfRecipeIsLiked();
+    getRecipe();
   }, []);
 
   if (!isLoading) {
